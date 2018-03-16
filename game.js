@@ -67,8 +67,7 @@ function drawArc() {
         ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
 
     if (y + dy > canvas.height-ballRadius){
-        alert("Ты че, лузер, с такой скоростью мячик пропустить?!")
-        alert("Серьёзно?");
+        alert("Loser, GAME OVER!");
         document.location.reload();
     }
     drawBricks();
