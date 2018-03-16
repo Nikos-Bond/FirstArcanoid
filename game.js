@@ -71,8 +71,6 @@ function drawArc() {
         alert("Серьёзно?");
         document.location.reload();
     }
-    // paddle.width = gameWidth;
-    // paddle = gameHeight;
     drawBricks();
     collisionDetection();
     drawPaddle();
@@ -82,7 +80,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
-setInterval(drawArc,15);
+setInterval(drawArc,10);
 for(i = 0; i < brickRowCount; i++) {
         bricks[i] = [];
         for(j = 0; j < brickColumnCount; j++) {
@@ -92,6 +90,7 @@ for(i = 0; i < brickRowCount; i++) {
             
         }
     }
+
 //рисуем блоки\кирпичи
 function drawBricks() {
     for(i = 0; i < brickRowCount; i++) {
@@ -102,9 +101,9 @@ function drawBricks() {
             ctx.fillStyle = colors[j];
             ctx.fill();
             ctx.closePath();
-        }
             }
         }
+    }
 }
 //рисуем платформу
 function drawPaddle() {
@@ -149,10 +148,6 @@ function collisionDetection() {
             }
         }
     }
-}
-//уничтожение блоков при столковении
-function destroy(i){
-    bricks.slice(i, 1);
 }
 
 function mouseMoveHandler(e) {
