@@ -30,6 +30,7 @@ var tiles = new Image();
 tiles.src = "padle.png";
 var dx = 2;
 var dy = -2;
+var CountAllBlocks = brickRowCount * brickColumnCount;
 
 var requestAnimFrame = window.requestAnimationFrame ||
                         window.webkitRequestAnimationFrame ||
@@ -39,6 +40,8 @@ var requestAnimFrame = window.requestAnimationFrame ||
                         
 var rightPressed = false;
 var leftPressed = false;
+
+var window_size = window.matchMedia('(max-width: 768px)');
 
 function drawArc() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -67,13 +70,20 @@ function drawArc() {
         ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
 
     if (y + dy > canvas.height-ballRadius){
+        // var scoree = getElementById("main");
+        // scoree.onclick();
         alert("Loser, GAME OVER!");
+        document.location.reload();
+    }
+    if(CountAllBlocks == 0){
+        alert("You WIN!");
         document.location.reload();
     }
     drawBricks();
     collisionDetection();
     drawPaddle();
     Score();
+    drawHighScore();
 }
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -128,9 +138,23 @@ function drawPaddle() {
 function Score() {
     ctx1.clearRect(0, 0, gameWidth, gameHeight);
     ctx1.font="35px Georgia";
+    ctx1.fillStyle = "#0095DD";
     ctx1.fillText("Score: " + score, 10, 60);
-    ctx1.fillStyle = "white";
     ctx1.fill();
+    document.cookie = "highscore="+score;
+    // drawHighScore();
+
+}
+
+//лучший счет
+function drawHighScore() {
+ctx1.font = "36px Georgia";
+var highscore = document.cookie.split('highscore=')[1];
+var max = 0;
+ctx1.fillStyle = "#0095DD";
+// if(highscore > max)
+//     max = highscore;
+ctx1.fillText("HScore: " + highscore, 10, 100);
 }
 //отслеживаем коллизию\столкновение
 function collisionDetection() {
@@ -142,6 +166,7 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score += 100;
+                    CountAllBlocks--;
                     // b.splice(i, 1);
                 }
             }
@@ -183,5 +208,17 @@ function keyUpHandler(e) {
     else if(e.KeyCode == 30){
         leftPressed = false;
         e.preventDefault();d
+    }
+}
+
+
+
+
+
+
+//for mobile-phones
+if(window_size.matches){
+function mob(){
+    
     }
 }
