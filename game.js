@@ -83,23 +83,28 @@ document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 setInterval(drawArc,15);
+for(i = 0; i < brickRowCount; i++) {
+        bricks[i] = [];
+        for(j = 0; j < brickColumnCount; j++) {
+            bricks[i][j] = { x: 0, y: 0, status: 1};          
+            bricks[i][j].x = ( j *(brickWidth + brickPadding)) + brickOffsetLeft;
+            bricks[i][j].y = ( i *(brickHeight + brickPadding)) + brickOffsetTop;
+            
+        }
+    }
 //рисуем блоки\кирпичи
 function drawBricks() {
     for(i = 0; i < brickRowCount; i++) {
-        bricks[i] = [];
         for(j = 0; j < brickColumnCount; j++) {
-            bricks[i][j] = { x: 0, y: 0, status: 1};
             if(bricks[i][j].status == 1){
-            bricks[i][j].x = ( j *(brickWidth + brickPadding)) + brickOffsetLeft;
-            bricks[i][j].y = ( i *(brickHeight + brickPadding)) + brickOffsetTop;
             ctx.beginPath();
             ctx.rect(bricks[i][j].x, bricks[i][j].y, brickWidth, brickHeight);
             ctx.fillStyle = colors[j];
             ctx.fill();
             ctx.closePath();
+        }
             }
         }
-    }
 }
 //рисуем платформу
 function drawPaddle() {
@@ -131,8 +136,8 @@ function Score() {
 }
 //отслеживаем коллизию\столкновение
 function collisionDetection() {
-    for(i = 0; i < brickColumnCount; i++) {
-        for(j = 0; j < brickRowCount; j++) {
+    for(i = 0; i < brickRowCount; i++) {
+        for(j = 0; j < brickColumnCount; j++) {
             var b = bricks[i][j];
             if(b.status == 1){
                 if(x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight){
