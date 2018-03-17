@@ -72,6 +72,7 @@ function drawArc() {
     if (y + dy > canvas.height-ballRadius){
         // var scoree = getElementById("main");
         // scoree.onclick();
+        y = canvas.height / 2;
         alert("Loser, GAME OVER!");
         document.location.reload();
     }
@@ -141,7 +142,7 @@ function Score() {
     ctx1.fillStyle = "#0095DD";
     ctx1.fillText("Score: " + score, 10, 60);
     ctx1.fill();
-    document.cookie = "highscore="+score;
+    
     // drawHighScore();
 
 }
@@ -152,8 +153,10 @@ ctx1.font = "36px Georgia";
 var highscore = document.cookie.split('highscore=')[1];
 var max = 0;
 ctx1.fillStyle = "#0095DD";
-// if(highscore > max)
-//     max = highscore;
+    if(highscore < score){
+    highscore = score;
+    document.cookie = "highscore="+score;
+}
 ctx1.fillText("HScore: " + highscore, 10, 100);
 }
 //отслеживаем коллизию\столкновение
